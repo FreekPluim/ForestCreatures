@@ -2,7 +2,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_Movement : MonoBehaviour
+public class Player_Movement : MonoBehaviour, ISaveLoad
 {
     public InputActionAsset inputActions;
     InputAction moveAction;
@@ -63,5 +63,15 @@ public class Player_Movement : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(sprinting ? rb.position + moveDirection.normalized * sprintSpeed : rb.position + moveDirection.normalized * moveSpeed);
+    }
+
+    public void LoadData(GameData data)
+    {
+        transform.position = data.playerPosition;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.playerPosition = transform.position;
     }
 }
